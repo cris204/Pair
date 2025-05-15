@@ -13,11 +13,6 @@ public class GameBoardManager : MonoBehaviour
 
     public List<CardController> cards = new();
 
-    private void Start()
-    {
-        CreateBoard();
-    }
-
     public void CreateBoard()
     {
         ClearBoard();
