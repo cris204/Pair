@@ -21,10 +21,10 @@ public class GameBoardController : MonoBehaviour
         List<int> ids = GenerateCardIds();
         Shuffle(ids);
 
-        StartCoroutine(CreateCardsCoroutine(ids));
+        CreateCardsCoroutine(ids);
     }
     
-    public IEnumerator CreateBoardFromSavedState(SavedGameState state)
+    public void CreateBoardFromSavedState(SavedGameState state)
     {
         ClearBoard();
 
@@ -55,17 +55,15 @@ public class GameBoardController : MonoBehaviour
             cards.Add(card);
         }
 
-        yield return null; 
-
         foreach (CardController card in matchCards)
         {
             card.Hide();
         }
 
-        gridLayout.enabled = false;
+        StartAdjustingGridLayout();
     }
     
-    private IEnumerator CreateCardsCoroutine(List<int> ids)
+    private void CreateCardsCoroutine(List<int> ids)
     {
         gridLayout.enabled = true;
 
@@ -79,10 +77,8 @@ public class GameBoardController : MonoBehaviour
             card.SetCard(ids[i], cardFaces[ids[i]]);
             cards.Add(card);
         }
-
-        yield return null;
-
-        gridLayout.enabled = false;
+        
+        StartAdjustingGridLayout();
     }
 
     private void ClearBoard()
@@ -98,13 +94,22 @@ public class GameBoardController : MonoBehaviour
 
     private List<int> GenerateCardIds()
     {
-        int pairs = (gridSize.x * gridSize.y) / 2;
+        int totalCards = gridSize.x * gridSize.y;
+        int requestedPairs = totalCards / 2;
+        int availablePairs = Mathf.Min(requestedPairs, cardFaces.Length);
+
+        if (requestedPairs > cardFaces.Length)
+        {
+            Debug.LogWarning($"Not enough card faces! Needed {requestedPairs}, but only {cardFaces.Length} provided. Using {availablePairs} pairs.");
+        }
+
         var ids = new List<int>();
-        for (int i = 0; i < pairs; i++)
+        for (int i = 0; i < availablePairs; i++)
         {
             ids.Add(i);
             ids.Add(i);
         }
+
         return ids;
     }
 
@@ -115,5 +120,40 @@ public class GameBoardController : MonoBehaviour
             int rand = Random.Range(0, i + 1);
             (list[i], list[rand]) = (list[rand], list[i]);
         }
+    }
+    
+    public void StartAdjustingGridLayout()
+    {
+        StartCoroutine(AdjustGridLayout());
+    }
+
+    private IEnumerator AdjustGridLayout()
+    {
+        RectTransform gridRect = gridLayout.GetComponent<RectTransform>();
+        gridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        gridLayout.constraintCount = gridSize.x;
+
+        float width = gridRect.rect.width;
+        float height = gridRect.rect.height;
+
+        int cols = gridSize.x;
+        int rows = gridSize.y;
+
+        float spacingX = gridLayout.spacing.x;
+        float spacingY = gridLayout.spacing.y;
+
+        float totalSpacingX = spacingX * (cols - 1);
+        float totalSpacingY = spacingY * (rows - 1);
+
+        float cellWidth = (width - totalSpacingX) / cols;
+        float cellHeight = (height - totalSpacingY) / rows;
+
+        float size = Mathf.Min(cellWidth, cellHeight);
+
+        gridLayout.cellSize = new Vector2(size, size);
+
+        yield return null;
+
+        gridLayout.enabled = false;
     }
 }

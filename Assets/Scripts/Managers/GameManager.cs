@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         SaveSystem.DeleteSave();
         board.CreateBoard();
         SubscribeToCards();
-        totalPairs = (board.gridSize.x * board.gridSize.y) / 2;
+        totalPairs = board.cards.Count / 2;
         matchedPairs = 0;
         scoreController.Reset();
         isRunning = true;
@@ -51,10 +51,14 @@ public class GameManager : MonoBehaviour
     
     public void StartFromLoadState()
     {
-        StartCoroutine(board.CreateBoardFromSavedState(SaveSystem.currentState));
-        scoreController.AddMatchPoints(SaveSystem.currentState.score);
+        SavedGameState state = SaveSystem.currentState;
+        board.gridSize = new Vector2Int(state.gridWidth, state.gridHeight);
+        totalPairs = state.totalPairs;
+        matchedPairs = state.matchedPairs;
+        board.CreateBoardFromSavedState(state);
+        scoreController.AddMatchPoints(state.score);
         SubscribeToCards();
-        matchedPairs = SaveSystem.currentState.matchedPairs;
+        matchedPairs = state.matchedPairs;
         isRunning = true;
     }
 
@@ -140,7 +144,8 @@ public class GameManager : MonoBehaviour
             score = scoreController.Score,
             gridWidth = board.gridSize.x,
             gridHeight = board.gridSize.y,
-            matchedPairs = matchedPairs
+            matchedPairs = matchedPairs,
+            totalPairs = totalPairs
         };
 
         foreach (var card in board.cards)
@@ -158,19 +163,11 @@ public class GameManager : MonoBehaviour
     private bool LoadGame()
     {
         SavedGameState state = SaveSystem.LoadGame();
-        if (state == null)
+        if (state == null || state.matchedPairs == state.totalPairs)
         {
             return false;
         }
 
-        board.gridSize = new Vector2Int(state.gridWidth, state.gridHeight);
-        totalPairs = (board.gridSize.x * board.gridSize.y) / 2;
-        
-        if (matchedPairs == totalPairs)
-        {
-            return false;
-        }
-        
         return true;
     }
 

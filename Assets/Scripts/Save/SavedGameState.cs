@@ -7,6 +7,7 @@ public class SavedGameState
     public int gridWidth;
     public int gridHeight;
     public int matchedPairs;
+    public int totalPairs;
     public List<SavedCard> cards = new();
 }
 

@@ -275,6 +275,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2112408565270907490, guid: 9a4b9ef3d9293c4498698bcfa23fa4a9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2400521504616230141, guid: 9a4b9ef3d9293c4498698bcfa23fa4a9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -359,6 +363,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4126075563844243296, guid: 9a4b9ef3d9293c4498698bcfa23fa4a9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486376501270989902, guid: 9a4b9ef3d9293c4498698bcfa23fa4a9, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7549263852421162840, guid: 9a4b9ef3d9293c4498698bcfa23fa4a9, type: 3}
       propertyPath: m_MatchWidthOrHeight
       value: 0
@@ -366,6 +378,10 @@ PrefabInstance:
     - target: {fileID: 7677146625041106997, guid: 9a4b9ef3d9293c4498698bcfa23fa4a9, type: 3}
       propertyPath: m_Name
       value: ResultCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677146625041106997, guid: 9a4b9ef3d9293c4498698bcfa23fa4a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a4b9ef3d9293c4498698bcfa23fa4a9, type: 3}
@@ -405,7 +421,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -558,7 +574,45 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bd5565336885f3446975c585f1b70ddd, type: 3}
   - {fileID: 21300000, guid: f44bf062172d59b4db02b29c751aa67f, type: 3}
   - {fileID: 21300000, guid: 6f931b78208ef07489b2ae2cc422b02d, type: 3}
-  gridSize: {x: 4, y: 3}
+  - {fileID: 21300000, guid: 84f3c6ba4f9bc8f4893d0fa95ac0a93a, type: 3}
+  - {fileID: 21300000, guid: aa0a930fde5ba3546a0a4990da3c7958, type: 3}
+  - {fileID: 21300000, guid: da2428cc0a18c1a4f97c365ed0f129ac, type: 3}
+  - {fileID: 21300000, guid: 835919401f538eb42b06914372123e8e, type: 3}
+  - {fileID: 21300000, guid: 8013ced2516877c43b1e60720f52748f, type: 3}
+  - {fileID: 21300000, guid: 0b55b49bf61a0e14ab542ec69fe02786, type: 3}
+  - {fileID: 21300000, guid: e2215a243d5978e4d8b915e107b4979f, type: 3}
+  - {fileID: 21300000, guid: d975054387d42354a9363011bfb62bce, type: 3}
+  - {fileID: 21300000, guid: 2630aaca550cda44986260cb35cf1387, type: 3}
+  - {fileID: 21300000, guid: f3e87f4aa00be774c9017322c9bd656c, type: 3}
+  - {fileID: 21300000, guid: 4fea7209b87bf684698342b7de78e2d0, type: 3}
+  - {fileID: 21300000, guid: 4c0827473773009449cf0ef7d0a228f6, type: 3}
+  - {fileID: 21300000, guid: a1e3951e1a03c124dbd4e9204787278f, type: 3}
+  - {fileID: 21300000, guid: 83da52182bc637e498b2e0da38d233a7, type: 3}
+  - {fileID: 21300000, guid: c6ae35aa675f33d4eb9c57987f1f96e1, type: 3}
+  - {fileID: 21300000, guid: ddfe6380e427a034c98cf286b332173c, type: 3}
+  - {fileID: 21300000, guid: cc16da6188962544787f7f3b5c7f499f, type: 3}
+  - {fileID: 21300000, guid: b12502ba5c973e3488a651f1e7634829, type: 3}
+  - {fileID: 21300000, guid: 9113d706c9b00364994c4bc4c779cc90, type: 3}
+  - {fileID: 21300000, guid: b99995a0f25801a4d9f648d8be6cf439, type: 3}
+  - {fileID: 21300000, guid: f4933b01621c8d943bd755751b7b75c2, type: 3}
+  - {fileID: 21300000, guid: ea2fcfff1b6007641a93cdb51dffaa31, type: 3}
+  - {fileID: 21300000, guid: 4b6407d5603798c478564165c39eb3de, type: 3}
+  - {fileID: 21300000, guid: ad07527a07f828544b6f6a2a7f00e678, type: 3}
+  - {fileID: 21300000, guid: 766f414c439da9240b103dc468ae0ee5, type: 3}
+  - {fileID: 21300000, guid: 57dc60da6e682344680826a29342ad11, type: 3}
+  - {fileID: 21300000, guid: 6220d67e58db4b74ebed750b4c5d1312, type: 3}
+  - {fileID: 21300000, guid: 3d4455fbc99f65b49a27cf9a63eaa3d6, type: 3}
+  - {fileID: 21300000, guid: 66ea6d4dcfce95c4a98eba75acf30526, type: 3}
+  - {fileID: 21300000, guid: 10dc9c67ffb56dd4f800103585f26888, type: 3}
+  - {fileID: 21300000, guid: 523bf6f3c1806ce48b9c36cf69041836, type: 3}
+  - {fileID: 21300000, guid: e7c66fb6bf0e75f47b713684aafe510a, type: 3}
+  - {fileID: 21300000, guid: a96f5f25e6b399d4ea75828a29498b73, type: 3}
+  - {fileID: 21300000, guid: 07720b55bb7cb3c45a9e509ca5b5e01c, type: 3}
+  - {fileID: 21300000, guid: 45a544502f29c1d4e91d8150cfa1d9f6, type: 3}
+  - {fileID: 21300000, guid: 6cf658fed04e9ec4eb4dce5566ae2ac1, type: 3}
+  - {fileID: 21300000, guid: 1a862a305a44ca64e939c2b35b24e829, type: 3}
+  - {fileID: 21300000, guid: 00d93e870e281474eaffc504915561f0, type: 3}
+  gridSize: {x: 5, y: 6}
   cards: []
 --- !u!4 &713119606
 Transform:
@@ -839,6 +893,10 @@ PrefabInstance:
     - target: {fileID: 2218284154686668914, guid: e6313981896e2cc4289b07d750128148, type: 3}
       propertyPath: m_Name
       value: MainMenuCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218284154686668914, guid: e6313981896e2cc4289b07d750128148, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6588472119527338960, guid: e6313981896e2cc4289b07d750128148, type: 3}
       propertyPath: m_MatchWidthOrHeight
@@ -1188,7 +1246,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -802.751, y: -356.778}
+  m_SizeDelta: {x: -449.6429, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1839827675
 MonoBehaviour:
@@ -1207,12 +1265,12 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 150, y: 200}
-  m_Spacing: {x: 50, y: 50}
-  m_Constraint: 0
+  m_CellSize: {x: 200, y: 200}
+  m_Spacing: {x: 15, y: 15}
+  m_Constraint: 1
   m_ConstraintCount: 2
 --- !u!222 &1839827677
 CanvasRenderer:
