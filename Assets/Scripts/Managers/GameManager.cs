@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -27,15 +28,19 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
-        board.CreateBoard();
-        SubscribeToCards();
-        totalPairs = (board.gridSize.x * board.gridSize.y) / 2;
-        matchedPairs = 0;
+        if (!LoadGame())
+        {
+            board.CreateBoard();
+            SubscribeToCards();
+            totalPairs = (board.gridSize.x * board.gridSize.y) / 2;
+            matchedPairs = 0;
+            scoreController.Reset();
+        }
     }
 
     private void SubscribeToCards()
     {
-        foreach (var card in board.cards)
+        foreach (CardController card in board.cards)
         {
             card.OnCardFlipped += HandleCardFlipped;
         }
@@ -99,5 +104,63 @@ public class GameManager : MonoBehaviour
     private void GameWon()
     {
         SoundManager.Instance.PlaySound(Env.SOUND_WIN);
+        SaveGame();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+
+    private void SaveGame()
+    {
+        SavedGameState state = new SavedGameState
+        {
+            score = scoreController.Score,
+            gridWidth = board.gridSize.x,
+            gridHeight = board.gridSize.y,
+            matchedPairs = matchedPairs
+        };
+
+        foreach (var card in board.cards)
+        {
+            state.cards.Add(new SavedCard
+            {
+                cardId = card.cardId,
+                isMatched = card.isMatched
+            });
+        }
+
+        SaveSystem.SaveGame(state);
+    }
+    
+    private bool LoadGame()
+    {
+        var state = SaveSystem.LoadGame();
+        if (state == null)
+        {
+            return false;
+        }
+
+        board.gridSize = new Vector2Int(state.gridWidth, state.gridHeight);
+        totalPairs = (board.gridSize.x * board.gridSize.y) / 2;
+        
+        if (matchedPairs == totalPairs)
+        {
+            return false;
+        }
+        
+        StartCoroutine(board.CreateBoardFromSavedState(state));
+        scoreController.AddMatchPoints(state.score);
+        SubscribeToCards();
+        matchedPairs = state.matchedPairs;
+        
+        return true;
+    }
+
+    [ContextMenu("DELETE")]
+    public void delete()
+    {
+        SaveSystem.DeleteSave();
     }
 }

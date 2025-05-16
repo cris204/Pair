@@ -23,7 +23,48 @@ public class GameBoardController : MonoBehaviour
 
         StartCoroutine(CreateCardsCoroutine(ids));
     }
+    
+    public IEnumerator CreateBoardFromSavedState(SavedGameState state)
+    {
+        ClearBoard();
 
+        gridLayout.enabled = true;
+
+        List<CardController> matchCards = new List<CardController>();
+
+        for (int i = 0; i < state.cards.Count; i++)
+        {
+            var savedCard = state.cards[i];
+            GameObject cardGO = PoolManager.Instance.GetObject(Env.CARD_PATH);
+            cardGO.transform.SetParent(gridParent, false);
+            cardGO.transform.localScale = Vector3.one;
+
+            CardController card = cardGO.GetComponent<CardController>();
+            card.SetCard(savedCard.cardId, cardFaces[savedCard.cardId]);
+            card.isMatched = savedCard.isMatched;
+
+            if (savedCard.isMatched)
+            {
+                matchCards.Add(card);
+            }
+            else
+            {
+                card.ShowBack();
+            }
+
+            cards.Add(card);
+        }
+
+        yield return null; 
+
+        foreach (CardController card in matchCards)
+        {
+            card.Hide();
+        }
+
+        gridLayout.enabled = false;
+    }
+    
     private IEnumerator CreateCardsCoroutine(List<int> ids)
     {
         gridLayout.enabled = true;

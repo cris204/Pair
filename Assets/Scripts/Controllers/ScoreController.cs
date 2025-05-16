@@ -5,6 +5,7 @@ public class ScoreController : MonoBehaviour
     public ScoreView view;
 
     public int Score { get; private set; }
+    public int HighScore { get; private set; }
     
     public event System.Action<int> OnScoreChanged;
 
@@ -12,23 +13,13 @@ public class ScoreController : MonoBehaviour
     {
         OnScoreChanged += view.UpdateScore;
     }
-
-    private void Start()
-    {
-        Reset();
-    }
-
+    
     public void AddMatchPoints(int points)
     {
         Score += points;
         OnScoreChanged?.Invoke(Score);
     }
 
-    public int GetScore()
-    {
-        return Score;
-    }
-    
     public void Reset()
     {
         Score = 0;
