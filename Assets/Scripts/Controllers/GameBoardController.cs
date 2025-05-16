@@ -90,7 +90,7 @@ public class GameBoardController : MonoBehaviour
         foreach (CardController card in cards)
         {
             PoolManager.Instance.ReleaseObject(Env.CARD_PATH, card.gameObject);
-            Destroy(card.gameObject);
+            card.ResetCard();
         }
 
         cards.Clear();

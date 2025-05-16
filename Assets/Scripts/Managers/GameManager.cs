@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameBoardController board;
     public ScoreController scoreController;
     public MainMenuUiView mainMenuUi;
+    public ResultUiView resultUiView;
 
     public bool canInteract = true;
     public bool hasGameInProgress = false;
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         hasGameInProgress = LoadGame();
         mainMenuUi.Init();
+        resultUiView.Init(NewGame);
     }
 
     public void NewGame()
@@ -91,14 +93,11 @@ public class GameManager : MonoBehaviour
 
         if (firstCard.cardId == secondCard.cardId)
         {
-            firstCard.isMatched = true;
-            secondCard.isMatched = true;
+            firstCard.MarkMatched();
+            secondCard.MarkMatched();
             SoundManager.Instance.PlaySound(Env.SOUND_MATCH);
             scoreController.AddMatchPoints(10);
             matchedPairs++;
-
-            firstCard.Hide();
-            secondCard.Hide();
 
             if (matchedPairs == totalPairs)
             {
@@ -123,6 +122,7 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.Instance.PlaySound(Env.SOUND_WIN);
         SaveGame();
+        resultUiView.GameOver(scoreController.Score);
     }
 
     private void OnApplicationQuit()

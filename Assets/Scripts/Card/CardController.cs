@@ -55,6 +55,7 @@ public class CardController : MonoBehaviour
     {
         isMatched = true;
         cardButton.interactable = false;
+        Hide();
     }
 
     public void ResetCard()
