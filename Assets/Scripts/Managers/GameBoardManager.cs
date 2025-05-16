@@ -1,14 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GameBoardManager : MonoBehaviour
 {
-    public GameObject cardPrefab;
     public Transform gridParent;
+    public GridLayoutGroup gridLayout;
     public Sprite[] cardFaces;
-    public Sprite cardBack;
     public Vector2Int gridSize = new(4, 3);
 
     public List<CardController> cards = new();
@@ -20,20 +21,37 @@ public class GameBoardManager : MonoBehaviour
         List<int> ids = GenerateCardIds();
         Shuffle(ids);
 
+        StartCoroutine(CreateCardsCoroutine(ids));
+    }
+
+    private IEnumerator CreateCardsCoroutine(List<int> ids)
+    {
+        gridLayout.enabled = true;
+
         for (int i = 0; i < ids.Count; i++)
         {
-            GameObject go = Instantiate(cardPrefab, gridParent);
-            var card = go.GetComponent<CardController>();
+            GameObject cardGO = PoolManager.Instance.GetObject(Env.CARD_PATH);
+            cardGO.transform.SetParent(gridParent, false);
+            cardGO.transform.localScale = Vector3.one;
+
+            CardController card = cardGO.GetComponent<CardController>();
             card.SetCard(ids[i], cardFaces[ids[i]]);
-            card.backSprite = cardBack;
             cards.Add(card);
         }
+
+        yield return null;
+
+        gridLayout.enabled = false;
     }
 
     private void ClearBoard()
     {
-        foreach (Transform child in gridParent)
-            Destroy(child.gameObject);
+        foreach (CardController card in cards)
+        {
+            PoolManager.Instance.ReleaseObject(Env.CARD_PATH, card.gameObject);
+            Destroy(card.gameObject);
+        }
+
         cards.Clear();
     }
 

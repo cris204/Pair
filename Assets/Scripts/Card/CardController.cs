@@ -30,7 +30,10 @@ public class CardController : MonoBehaviour
 
     public void FlipCard()
     {
-        if (isFlipped || isMatched) return;
+        if ((isFlipped || isMatched) || !GameManager.Instance.canInteract)
+        {
+            return;
+        }
 
         isFlipped = true;
         ShowFront();
@@ -60,5 +63,10 @@ public class CardController : MonoBehaviour
         isMatched = false;
         cardButton.interactable = true;
         ShowBack();
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }
