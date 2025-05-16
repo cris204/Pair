@@ -6,13 +6,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     
-    [Header("Managers")]
+    [Header("Controllers")]
     public GameBoardController board;
     public ScoreController scoreController;
+    public MainMenuUiView mainMenuUi;
 
     public bool canInteract = true;
+    public bool hasGameInProgress = false;
+    
     private CardController firstCard, secondCard;
     
+    private bool isRunning = false;
     private int totalPairs = 0;
     private int matchedPairs = 0;
 
@@ -28,14 +32,28 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
-        if (!LoadGame())
-        {
-            board.CreateBoard();
-            SubscribeToCards();
-            totalPairs = (board.gridSize.x * board.gridSize.y) / 2;
-            matchedPairs = 0;
-            scoreController.Reset();
-        }
+        hasGameInProgress = LoadGame();
+        mainMenuUi.Init();
+    }
+
+    public void NewGame()
+    {
+        SaveSystem.DeleteSave();
+        board.CreateBoard();
+        SubscribeToCards();
+        totalPairs = (board.gridSize.x * board.gridSize.y) / 2;
+        matchedPairs = 0;
+        scoreController.Reset();
+        isRunning = true;
+    }
+    
+    public void StartFromLoadState()
+    {
+        StartCoroutine(board.CreateBoardFromSavedState(SaveSystem.currentState));
+        scoreController.AddMatchPoints(SaveSystem.currentState.score);
+        SubscribeToCards();
+        matchedPairs = SaveSystem.currentState.matchedPairs;
+        isRunning = true;
     }
 
     private void SubscribeToCards()
@@ -109,7 +127,10 @@ public class GameManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        SaveGame();
+        if (isRunning)
+        {
+            SaveGame();
+        }
     }
 
     private void SaveGame()
@@ -136,7 +157,7 @@ public class GameManager : MonoBehaviour
     
     private bool LoadGame()
     {
-        var state = SaveSystem.LoadGame();
+        SavedGameState state = SaveSystem.LoadGame();
         if (state == null)
         {
             return false;
@@ -150,13 +171,9 @@ public class GameManager : MonoBehaviour
             return false;
         }
         
-        StartCoroutine(board.CreateBoardFromSavedState(state));
-        scoreController.AddMatchPoints(state.score);
-        SubscribeToCards();
-        matchedPairs = state.matchedPairs;
-        
         return true;
     }
+
 
     [ContextMenu("DELETE")]
     public void delete()

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public static class SaveSystem
 {
+    public static SavedGameState currentState;
     private static string SavePath => Path.Combine(Application.persistentDataPath, "save.json");
 
     public static void SaveGame(SavedGameState state)
@@ -18,7 +19,10 @@ public static class SaveSystem
             return null;
         }
         string json = File.ReadAllText(SavePath);
-        return JsonUtility.FromJson<SavedGameState>(json);
+        
+        currentState = JsonUtility.FromJson<SavedGameState>(json);
+            
+        return currentState;
     }
 
     public static void DeleteSave()
