@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class GameBoardManager : MonoBehaviour
+public class GameBoardController : MonoBehaviour
 {
     public Transform gridParent;
     public GridLayoutGroup gridLayout;

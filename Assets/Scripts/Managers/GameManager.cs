@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     [Header("Managers")]
-    public GameBoardManager board;
+    public GameBoardController board;
+    public ScoreController scoreController;
 
     public bool canInteract = true;
     private CardController firstCard, secondCard;
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
             firstCard.isMatched = true;
             secondCard.isMatched = true;
             SoundManager.Instance.PlaySound(Env.SOUND_MATCH);
+            scoreController.AddMatchPoints(10);
             matchedPairs++;
 
             firstCard.Hide();
