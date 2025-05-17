@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class ScoreController : MonoBehaviour
 {
-    public ScoreView view;
-
     public int Score { get; private set; }
-    public int HighScore { get; private set; }
     
+    [SerializeField]
+    private ScoreView view;
+
     public event System.Action<int> OnScoreChanged;
 
     private void Awake()

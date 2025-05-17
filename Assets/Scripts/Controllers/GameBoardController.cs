@@ -7,13 +7,16 @@ using Random = UnityEngine.Random;
 
 public class GameBoardController : MonoBehaviour
 {
-    public Transform gridParent;
-    public GridLayoutGroup gridLayout;
-    public Sprite[] cardFaces;
     public Vector2Int gridSize = new(4, 3);
-
     public List<CardController> cards = new();
-
+    
+    [SerializeField]
+    private Transform gridParent;
+    [SerializeField]
+    private GridLayoutGroup gridLayout;
+    [SerializeField]
+    private Sprite[] cardFaces;
+    
     public void CreateBoard()
     {
         ClearBoard();

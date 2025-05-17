@@ -4,14 +4,18 @@ using System;
 
 public class CardController : MonoBehaviour
 {
-    public Button cardButton;
-    public Image cardImage;
-    public Sprite frontSprite;
-    public Sprite backSprite;
-
     public int cardId;
     public bool isFlipped = false;
     public bool isMatched = false;
+    
+    [SerializeField]
+    private Button cardButton;
+    [SerializeField]
+    private Image cardImage;
+    [SerializeField]
+    private Sprite frontSprite;
+    [SerializeField]
+    private Sprite backSprite;
 
     public event Action<CardController> OnCardFlipped;
 
