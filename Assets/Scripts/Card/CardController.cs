@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using DG.Tweening;
 
 public class CardController : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class CardController : MonoBehaviour
         }
 
         isFlipped = true;
-        ShowFront();
+        AnimateFlip(true);
         OnCardFlipped?.Invoke(this);
     }
 
@@ -73,5 +74,34 @@ public class CardController : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    public void FlipBack()
+    {
+        isFlipped = false;
+        AnimateFlip(false);
+    }
+    
+    private void AnimateFlip(bool showFront)
+    {
+        float duration = 0.25f;
+        
+        Sequence flip = DOTween.Sequence();
+        
+        flip.Append(transform.DOScaleX(0f, duration / 2).SetEase(Ease.InQuad));
+        
+        flip.AppendCallback(() =>
+        {
+            if (showFront)
+            {
+                ShowFront();
+            }
+            else
+            {
+                ShowBack();
+            }
+        });
+        
+        flip.Append(transform.DOScaleX(1f, duration / 2).SetEase(Ease.OutQuad));
     }
 }

@@ -112,8 +112,8 @@ public class GameManager : MonoBehaviour
         {
             firstCard.isFlipped = false;
             secondCard.isFlipped = false;
-            firstCard.ShowBack();
-            secondCard.ShowBack();
+            firstCard.FlipBack();
+            secondCard.FlipBack();
             SoundManager.Instance.PlaySound(Env.SOUND_FAIL);
         }
 
