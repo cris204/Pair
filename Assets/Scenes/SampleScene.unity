@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f04cbc69c816e4ba5ee7a043471f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 5, y: 6}
+  gridSize: {x: 4, y: 4}
   cards: []
   gridParent: {fileID: 1839827674}
   gridLayout: {fileID: 1839827675}
