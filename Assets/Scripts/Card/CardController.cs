@@ -23,7 +23,6 @@ public class CardController : MonoBehaviour
     void Start()
     {
         cardButton.onClick.AddListener(FlipCard);
-        ShowBack();
     }
 
     public void SetCard(int id, Sprite front)

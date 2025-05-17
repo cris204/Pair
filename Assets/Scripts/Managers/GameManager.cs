@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         matchedPairs = 0;
         scoreController.Reset();
         isRunning = true;
+        StartCoroutine(board.RevealAllThenHide());
     }
     
     public void StartFromLoadState()
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
         SubscribeToCards();
         matchedPairs = state.matchedPairs;
         isRunning = true;
+        StartCoroutine(board.RevealAllThenHide());
     }
 
     private void SubscribeToCards()

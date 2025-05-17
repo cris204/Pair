@@ -83,6 +83,23 @@ public class GameBoardController : MonoBehaviour
         
         StartAdjustingGridLayout();
     }
+    
+    public IEnumerator RevealAllThenHide(float showTime = 0.5f, float flipDelay = 0.05f)
+    {
+        foreach (var card in cards)
+        {
+            card.ShowFront();
+            card.isFlipped = false;
+        }
+
+        yield return new WaitForSeconds(showTime);
+
+        foreach (var card in cards)
+        {
+            card.FlipBack();
+            yield return new WaitForSeconds(flipDelay);
+        }
+    }
 
     private void ClearBoard()
     {
