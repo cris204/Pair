@@ -19,6 +19,11 @@ public class SoundManager : MonoBehaviour
         Instance = this;
         
         isMuted = PlayerPrefs.GetInt("SoundMuted", 0) == 1;
+    
+    }
+
+    private void Start()
+    {
         audioMixer.SetFloat("MasterVolume", isMuted ? -80f : 0f);
     }
 
