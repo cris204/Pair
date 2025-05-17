@@ -17,6 +17,8 @@ public class GameBoardController : MonoBehaviour
     [SerializeField]
     private Sprite[] cardFaces;
     
+    private List<CardController> matchCards = new List<CardController>();
+
     public void CreateBoard()
     {
         ClearBoard();
@@ -32,8 +34,6 @@ public class GameBoardController : MonoBehaviour
         ClearBoard();
 
         gridLayout.enabled = true;
-
-        List<CardController> matchCards = new List<CardController>();
 
         for (int i = 0; i < state.cards.Count; i++)
         {
@@ -56,11 +56,6 @@ public class GameBoardController : MonoBehaviour
             }
 
             cards.Add(card);
-        }
-
-        foreach (CardController card in matchCards)
-        {
-            card.Hide();
         }
 
         StartAdjustingGridLayout();
@@ -103,6 +98,7 @@ public class GameBoardController : MonoBehaviour
 
     private void ClearBoard()
     {
+        matchCards.Clear();
         foreach (CardController card in cards)
         {
             PoolManager.Instance.ReleaseObject(Env.CARD_PATH, card.gameObject);
@@ -175,5 +171,10 @@ public class GameBoardController : MonoBehaviour
         yield return null;
 
         gridLayout.enabled = false;
+        
+        foreach (CardController card in matchCards)
+        {
+            card.Hide();
+        }
     }
 }
