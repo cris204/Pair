@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class SavedGameState
 {
     public int score;
+    public int turns;
     public int gridWidth;
     public int gridHeight;
     public int matchedPairs;

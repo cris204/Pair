@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         matchedPairs = state.matchedPairs;
         board.CreateBoardFromSavedState(state);
         scoreController.AddMatchPoints(state.score);
+        scoreController.AddMoves(state.turns);
         SubscribeToCards();
         matchedPairs = state.matchedPairs;
         isRunning = true;
@@ -96,13 +97,15 @@ public class GameManager : MonoBehaviour
     private IEnumerator CheckMatch()
     {
         yield return new WaitForSeconds(0.25f);
-
+        scoreController.AddMoves(1);
+        
         if (firstCard.cardId == secondCard.cardId)
         {
             firstCard.MarkMatched();
             secondCard.MarkMatched();
             SoundManager.Instance.PlaySound(Env.SOUND_MATCH);
             scoreController.AddMatchPoints(10);
+            
             matchedPairs++;
 
             if (matchedPairs == totalPairs)
@@ -144,6 +147,7 @@ public class GameManager : MonoBehaviour
         SavedGameState state = new SavedGameState
         {
             score = scoreController.Score,
+            turns = scoreController.Turns,
             gridWidth = board.gridSize.x,
             gridHeight = board.gridSize.y,
             matchedPairs = matchedPairs,
